@@ -1,17 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Login</title>
+    <title>Waiting_Line-UNC</title>
+    <link rel="shortcut icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMxYTVmYjQiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS11bml2ZXJzaXR5Ij48Y2lyY2xlIGN4PSIxMiIgY3k9IjEwIiByPSIxIi8+PHBhdGggZD0iTTIyIDIwVjhoLTRsLTYtNC02IDRIMnYxMmEyIDIgMCAwIDAgMiAyaDE2YTIgMiAwIDAgMCAyLTIiLz48cGF0aCBkPSJNNiAxN3YuMDEiLz48cGF0aCBkPSJNNiAxM3YuMDEiLz48cGF0aCBkPSJNMTggMTd2LjAxIi8+PHBhdGggZD0iTTE4IDEzdi4wMSIvPjxwYXRoIGQ9Ik0xNCAyMnYtNWEyIDIgMCAwIDAtMi0ydjBhMiAyIDAgMCAwLTIgMnY1Ii8+PC9zdmc+" type="image/x-icon">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 p-8">
-    <h1 class="text-2xl font-bold mb-4">Connexion</h1>
-    <form action="/login" method="post" class="mb-4">
-        <label for="username" class="block mb-2">Nom d'utilisateur :</label>
-        <input type="text" id="username" name="username" required class="border p-2 w-full mb-4">
-        <label for="password" class="block mb-2">Mot de passe :</label>
-        <input type="password" id="password" name="password" required class="border p-2 w-full mb-4">
-        <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Se connecter</button>
+<body class="bg-gray-950 h-screen max-[600px]:p-4 flex items-center justify-center">
+<div class="bg-gray-800 p-4 rounded-lg shadow-lg w-full max-w-md">
+    <h1 class="text-3xl text-white font-bold mb-5 text-center">Login</h1>
+
+    <div class="mb-5 mt-4 p-2 bg-red-100 border border-red-200 text-red-700 rounded-lg flex gap-1 max-[600px]:text-sm" th:if="${param.error}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-x"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m14.5 9.5-5 5"/><path d="m9.5 9.5 5 5"/></svg>
+        <p>Username or password invalid</p>
+    </div>
+
+    <form th:action="@{/login}" method="post" class="max-w-sm mx-auto">
+        <div class="mb-5">
+            <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+            <input type="text" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required />
+        </div>
+
+        <div class="mb-5">
+            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+            <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+        </div>
+
+        <div class="flex items-start mb-5">
+            <div class="flex items-center h-5">
+                <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />
+            </div>
+            <label for="remember" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
+        </div>
+
+        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
     </form>
+</div>
 </body>
 </html>
+

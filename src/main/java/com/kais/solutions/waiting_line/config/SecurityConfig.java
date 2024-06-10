@@ -1,7 +1,7 @@
 package com.kais.solutions.waiting_line.config;
 
 import com.kais.solutions.waiting_line.service.CustomUserDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,11 +13,9 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration()
 @EnableWebSecurity
+@AllArgsConstructor
 public class SecurityConfig {
-    @Autowired
     private CustomUserDetailsService userDetailsService;
-
-    @Autowired
     private CustomAuthenticationSuccessHandler authenticationSuccessHandler;
 
     @Bean
@@ -28,20 +26,27 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry -> {
-                    authorizationManagerRequestMatcherRegistry
-                            .requestMatchers("/login").permitAll()
-                            .requestMatchers("/**").hasRole("ADMIN")
-                            .anyRequest().authenticated();
+                .authorizeHttpRequests(authorizeHttpRequests -> {
+                    authorizeHttpRequests
+                            .anyRequest().permitAll();
+                            //.requestMatchers("/login").permitAll();
+                            //.requestMatchers("/**").hasRole("ADMIN")
+                            //.anyRequest().authenticated();
         })
-                .userDetailsService(userDetailsService)
-                .formLogin(httpSecurityFormLoginConfigurer -> {
-                    httpSecurityFormLoginConfigurer
+                .formLogin(formLoginConfigurer -> {
+                    formLoginConfigurer
                             .loginPage("/login")
-                            .successHandler(authenticationSuccessHandler)
+                            .loginProcessingUrl("/login")
+                            .defaultSuccessUrl("/")
+                            //.successHandler(authenticationSuccessHandler)
                             .permitAll();
-        })
+        });
+                /*
+                .rememberMe(rememberMeConfigurer -> {
+                    rememberMeConfigurer.userDetailsService(userDetailsService);
+                })
                 .logout(LogoutConfigurer::permitAll);
+                */
 
         return http.build();
     }
